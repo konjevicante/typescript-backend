@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+    volumes:
+    - .:/app
+    working_dir: /app
+    ports:
+    - "4000:4000"
+    environment:
+      NODE_ENV: dev
+      NODE_PORT: 4000
+      MONGO_PORT: 27017
+      MONGO_HOST: mongodb://mongo/database
+    restart: always
+    depends_on:
+    - mongo
+
+  mongo:
+    ports:
+    - "27017:27017"
+    image: mongo:4.0
